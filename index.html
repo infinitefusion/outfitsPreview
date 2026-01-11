@@ -22,7 +22,20 @@
     </select>
 </div>
 
-<canvas id="previewCanvas" width="160" height="160"></canvas>
+<!-- Wrapper for preview and hairstyle -->
+<div id="previewWrapper">
+    <div id="leftPanel">
+        <div id="hairstyleContainer" class="vertical-drop-container"></div>
+        <div id="hatContainer" class="vertical-drop-container"></div>
+    </div>
+
+
+    <!-- Main preview canvas -->
+    <canvas id="previewCanvas" width="160" height="160"></canvas>
+</div>
+
+
+<!-- Controls -->
 <div id="controlsWrapper">
     <div id="controls">
         <button id="playPauseBtn" class="control-btn">Pause</button>
@@ -35,13 +48,12 @@
     </div>
 </div>
 
-
-
-
+<!-- Clothing Sprites (Drag & Drop) -->
 <h3>Clothing Sprites (Drag & Drop)</h3>
 <div id="dropFields" class="drop-container"></div>
 
 <!-- Your main JS -->
 <script type="module" src="main.js"></script>
+
 </body>
 </html>
