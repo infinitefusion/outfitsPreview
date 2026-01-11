@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Player Sprite Previewer</title>
+    <!-- Link external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Player Sprite Previewer</h2>
+
+<div>
+    <label for="actionSelect">Action: </label>
+    <select id="actionSelect">
+        <option value="walk">Walk</option>
+        <option value="run">Run</option>
+        <option value="bike">Bike</option>
+        <option value="surf">Surf</option>
+        <option value="dive">Dive</option>
+        <option value="fish">Fish</option>
+    </select>
+</div>
+
+<canvas id="previewCanvas" width="160" height="160"></canvas>
+<div id="controlsWrapper">
+    <div id="controls">
+        <button id="playPauseBtn" class="control-btn">Pause</button>
+        <button id="nextFrameBtn" class="control-btn">Next Frame</button>
+        <div class="speed-container">
+            <label for="speedSlider">Speed:</label>
+            <input type="range" id="speedSlider" min="1" max="12" value="6">
+            <span id="speedLabel">6 FPS</span>
+        </div>
+    </div>
+</div>
+
+
+
+
+<h3>Clothing Sprites (Drag & Drop)</h3>
+<div id="dropFields" class="drop-container"></div>
+
+<!-- Your main JS -->
+<script type="module" src="main.js"></script>
+</body>
+</html>

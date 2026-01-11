@@ -1,0 +1,126 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 30px;
+}
+
+canvas {
+    background: #87bdeb;
+    image-rendering: pixelated;
+    display: block;
+    margin: 20px auto;
+}
+
+select {
+    font-size: 16px;
+    padding: 4px;
+}
+
+/* Horizontal layout for drag & drop fields */
+.drop-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.drop-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drop-field {
+    border: 2px dashed #444;
+    padding: 5px;
+    margin: 5px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    position: relative;
+}
+
+.drop-field.dragover {
+    border-color: #00f;
+    background-color: #cdf;
+}
+
+.drop-field.active {
+    border-color: #f00; /* Highlight selected action */
+}
+
+.drop-field canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Wrapper to center everything */
+#controlsWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+#controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: sans-serif;
+}
+
+.control-btn {
+    background: #4caf50;
+    border: none;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.control-btn:hover {
+    background: #45a049;
+}
+
+.speed-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#speedSlider {
+    -webkit-appearance: none;
+    width: 120px;
+    height: 6px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#speedSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #4caf50;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#speedSlider::-webkit-slider-thumb:hover {
+    background: #45a049;
+}
+
+#speedSlider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4caf50;
+    border-radius: 50%;
+    cursor: pointer;
+}
