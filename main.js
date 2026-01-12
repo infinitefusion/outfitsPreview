@@ -45,7 +45,6 @@ const canvas = document.getElementById("previewCanvas");
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 
-const actionSelect = document.getElementById("actionSelect");
 const skinToneSelect = document.getElementById("skinToneSelect");
 const dropContainer = document.getElementById("dropFields");
 const speedSlider = document.getElementById("speedSlider");
@@ -211,7 +210,6 @@ function drawDropField(key) {
 // ---------- Switch Action ----------
 function switchAction(action) {
     currentAction = action;
-    actionSelect.value = action;
     if (!baseImages[action]) {
         const img = new Image();
         img.src = baseSprites[action];
@@ -283,7 +281,6 @@ createLabelToggle(document.getElementById("hatContainer"), ".drop-label", showHa
 // ================================
 // ======== CONTROLS ===============
 // ================================
-actionSelect.addEventListener("change", e => switchAction(e.target.value));
 skinToneSelect.addEventListener("change", e => switchSkinTone(e.target.value));
 
 document.addEventListener("keydown", e => {
