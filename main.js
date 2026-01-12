@@ -29,9 +29,14 @@ const overlays = {};       // URL per overlay
 const overlayImages = {};  // Image objects
 const dropFields = {};     // Mini canvases
 
-ACTIONS.forEach(action => {
-    baseSprites[action] = `resources/base/overworld/4/${action}_4.png`;
-});
+let skinTone = 4
+
+function updateBaseSprites() {
+    ACTIONS.forEach(action => {
+        baseSprites[action] = `resources/base/overworld/${skinTone}/${action}_${skinTone}.png`;
+    });
+}
+updateBaseSprites();
 
 // ================================
 // ======== DOM ELEMENTS ===========
@@ -41,11 +46,14 @@ const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 
 const actionSelect = document.getElementById("actionSelect");
+const skinToneSelect = document.getElementById("skinToneSelect");
 const dropContainer = document.getElementById("dropFields");
 const speedSlider = document.getElementById("speedSlider");
 const speedLabel = document.getElementById("speedLabel");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const nextFrameBtn = document.getElementById("nextFrameBtn");
+
+skinToneSelect.value = skinTone;
 
 canvas.addEventListener("dragover", e => {
     e.preventDefault();
@@ -144,7 +152,7 @@ function loadFileIntoKey(file, key) {
 function detectDropTargetFromFilename(filename){
     const name = filename.toLowerCase();
     for (const action of ACTIONS) {
-        if(name.includes(action)) return action;
+        if(name.includes("_" + action + "_")) return action;
     }
     if (name.includes("hat") && !name.includes("trainer")) return "hat";
     if (name.includes("hair") && !name.includes("trainer")) return "hairstyle";
@@ -205,6 +213,20 @@ function switchAction(action) {
     } else drawFrame();
 }
 
+function switchSkinTone(tone) {
+    skinTone = tone;
+    skinToneSelect.value = tone;
+    updateBaseSprites();
+    ACTIONS.forEach(action => {
+        delete baseImages[action];
+    });
+
+    const img = new Image();
+    img.src = baseSprites[currentAction];
+    img.onload = drawFrame;
+    baseImages[currentAction] = img;
+}
+
 // ================================
 // ======== DRAW FUNCTIONS =========
 // ================================
@@ -255,6 +277,7 @@ createLabelToggle(document.getElementById("hatContainer"), ".drop-label", showHa
 // ======== CONTROLS ===============
 // ================================
 actionSelect.addEventListener("change", e => switchAction(e.target.value));
+skinToneSelect.addEventListener("change", e => switchSkinTone(e.target.value));
 
 document.addEventListener("keydown", e => {
     if (DIRECTIONS.hasOwnProperty(e.key)) {
