@@ -147,7 +147,7 @@ function detectDropTargetFromFilename(filename){
         if(name.includes(action)) return action;
     }
     if (name.includes("hat") && !name.includes("trainer")) return "hat";
-    if (name.includes("hair") && !name.includes("trainer")) return "hair";
+    if (name.includes("hair") && !name.includes("trainer")) return "hairstyle";
 }
 
 
