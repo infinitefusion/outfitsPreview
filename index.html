@@ -35,17 +35,19 @@
     </select>
 </div>
 
-<!-- Wrapper for preview and hairstyle -->
 <div id="previewWrapper">
     <div id="leftPanel">
         <div id="hairstyleContainer" class="vertical-drop-container"></div>
         <div id="hatContainer" class="vertical-drop-container"></div>
     </div>
 
-
-    <!-- Main preview canvas -->
-    <canvas id="previewCanvas" width="160" height="160"></canvas>
+    <div id="canvasArea" class="preview-drop-zone">
+        <canvas id="previewCanvas" width="160" height="160"></canvas>
+        <div id="canvasDropOverlay">Drop sprites here</div>
+    </div>
 </div>
+
+
 
 
 <!-- Controls -->
@@ -62,20 +64,21 @@
 </div>
 
 <!-- Clothing Sprites (Drag & Drop) -->
-<h3>Clothing Sprites (Drag & Drop)</h3>
+<h3>Actions</h3>
 <div id="dropFields" class="drop-container"></div>
 
 <!-- Your main JS -->
 <script type="module" src="main.js"></script>
 
 <section class="instructions">
-    <h3>How to Use</h3>
+    <h3>How to Use This Tool</h3>
     <ul>
+
         <li>
-            Drag and drop outfit sprite files into their corresponding categories.
+            If your sprites are already named correctly, drag and drop them on the preview and they'll be assigned to the correct actions based on the filename (you can drag multiple at once!)
         </li>
         <li>
-            If they're already named correctly, you can also simply drop them on the preview and they'll be assigned to the correct actions based on the filename (multiple at once too!)
+            You can also drag & drop them directly on the specific actions.
         </li>
         <li>
             Use the arrow keys to change the character’s direction.

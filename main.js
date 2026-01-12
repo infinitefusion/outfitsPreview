@@ -52,24 +52,30 @@ const speedSlider = document.getElementById("speedSlider");
 const speedLabel = document.getElementById("speedLabel");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const nextFrameBtn = document.getElementById("nextFrameBtn");
+const canvasDropOverlay = document.getElementById("canvasDropOverlay");
 
 skinToneSelect.value = skinTone;
+const canvasArea = document.getElementById("canvasArea");
 
-canvas.addEventListener("dragover", e => {
+canvasArea.addEventListener("dragenter", e => {
     e.preventDefault();
-    canvas.classList.add("dragover");
+    canvasDropOverlay.classList.add("active");
 });
 
-canvas.addEventListener("dragleave", () => {
-    canvas.classList.remove("dragover");
+canvasArea.addEventListener("dragover", e => e.preventDefault());
+
+canvasArea.addEventListener("dragleave", e => {
+    // Only hide if leaving the canvasArea entirely
+    if (!canvasArea.contains(e.relatedTarget)) {
+        canvasDropOverlay.classList.remove("active");
+    }
 });
 
-canvas.addEventListener("drop", e => {
+canvasArea.addEventListener("drop", e => {
     e.preventDefault();
-    canvas.classList.remove("dragover");
+    canvasDropOverlay.classList.remove("active");
 
     const files = Array.from(e.dataTransfer.files);
-
     for (const file of files) {
         if (file.type !== "image/png") continue;
 
@@ -79,6 +85,7 @@ canvas.addEventListener("drop", e => {
         loadFileIntoKey(file, targetKey);
     }
 });
+
 
 
 
