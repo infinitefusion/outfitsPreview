@@ -47,6 +47,33 @@ const speedLabel = document.getElementById("speedLabel");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const nextFrameBtn = document.getElementById("nextFrameBtn");
 
+canvas.addEventListener("dragover", e => {
+    e.preventDefault();
+    canvas.classList.add("dragover");
+});
+
+canvas.addEventListener("dragleave", () => {
+    canvas.classList.remove("dragover");
+});
+
+canvas.addEventListener("drop", e => {
+    e.preventDefault();
+    canvas.classList.remove("dragover");
+
+    const files = Array.from(e.dataTransfer.files);
+
+    for (const file of files) {
+        if (file.type !== "image/png") continue;
+
+        const targetKey = detectDropTargetFromFilename(file.name);
+        if (!targetKey) continue;
+
+        loadFileIntoKey(file, targetKey);
+    }
+});
+
+
+
 // ================================
 // ======== HELPER FUNCTIONS =======
 // ================================
@@ -86,18 +113,43 @@ function handleDrop(e, key, onLoadOverlay) {
     const field = dropFields[key].canvas;
     field.classList.remove("dragover");
     const file = e.dataTransfer.files[0];
-    if (file && file.type === "image/png") {
-        const url = URL.createObjectURL(file);
-        overlays[key] = url;
-        const img = new Image();
-        img.src = url;
-        overlayImages[key] = img;
-        img.onload = () => {
-            drawDropField(key);
-            if (onLoadOverlay) onLoadOverlay(key);
-        };
-    }
+    loadFileIntoKey(file, key);
+
+    if (onLoadOverlay) onLoadOverlay(key);
 }
+
+function loadFileIntoKey(file, key) {
+    if (!file || file.type !== "image/png") return;
+
+    const url = URL.createObjectURL(file);
+    overlays[key] = url;
+
+    const img = new Image();
+    img.src = url;
+    overlayImages[key] = img;
+
+    img.onload = () => {
+        drawDropField(key);
+
+        // Auto-switch action if relevant
+        if (ACTIONS.includes(key)) {
+            switchAction(key);
+        } else {
+            drawFrame();
+        }
+    };
+}
+
+
+function detectDropTargetFromFilename(filename){
+    const name = filename.toLowerCase();
+    for (const action of ACTIONS) {
+        if(name.includes(action)) return action;
+    }
+    if (name.includes("hat") && !name.includes("trainer")) return "hat";
+    if (name.includes("hair") && !name.includes("trainer")) return "hair";
+}
+
 
 // ---------- Action Drop Field ----------
 function createActionDropField(action) {
